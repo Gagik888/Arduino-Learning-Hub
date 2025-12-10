@@ -435,6 +435,22 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeComparisonChart();
 });
 
+// Mobile nav toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if (navToggle && navbar) {
+        navToggle.addEventListener('click', () => {
+            navbar.classList.toggle('nav-open');
+        });
+    }
+    // Close mobile menu when a link is clicked
+    navLinks.forEach(link => link.addEventListener('click', () => {
+        if (navbar.classList.contains('nav-open')) navbar.classList.remove('nav-open');
+    }));
+});
+
 // Chart configuration
 let temperatureChart, humidityChart, voltageChart, lightChart, multiSensorChart, comparisonChart;
 
