@@ -12,7 +12,6 @@
     <nav class="navbar">
         <div class="container">
             <div class="logo">⚡ Arduino Hub</div>
-            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#tutorials">Tutorials</a></li>
@@ -315,9 +314,9 @@ String myString = "Hello Arduino";</code></pre>
 
                 <div class="tutorial-card">
                     <div class="card-icon">🔄</div>
-                    <h3>Loops & Conditionals</h3>
-                    <p>Master control flow with loops and if statements.</p>
-                    <button class="learn-btn" onclick="expandTutorial(10)">Learn More</button>
+                    <h3 data-i18n="loopsTitle">Loops & Conditionals</h3>
+                    <p data-i18n="loopsDesc">Master control flow with loops and if statements.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(10)">Learn More</button>
                     <div id="tutorial-10" class="tutorial-details hidden">
                         <h4>Control Flow Examples:</h4>
                         <pre><code>// If statement
@@ -342,6 +341,133 @@ while (counter < 100) {
   counter++;
 }</code></pre>
                         <p><strong>Tip:</strong> Use braces {} to group multiple statements</p>
+                    </div>
+                </div>
+
+                <!-- Advanced Tutorials 11-16 -->
+                <div class="tutorial-card">
+                    <div class="card-icon">🌐</div>
+                    <h3 data-i18n="iotTitle">IoT & Networking</h3>
+                    <p data-i18n="iotDesc">Send sensor data to cloud platforms like Firebase or ThingSpeak.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(11)">Learn More</button>
+                    <div id="tutorial-11" class="tutorial-details hidden">
+                        <h4>ThingSpeak API Example (ESP8266):</h4>
+                        <pre><code>#include &lt;ESP8266WiFi.h&gt;
+const char* ssid = "YOUR_SSID";
+const char* apiKey = "YOUR_API_KEY";
+void setup() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) delay(500);
+}
+void loop() {
+  float temp = readTemperature();
+  sendToThingSpeak(temp);
+  delay(15000);
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">📱</div>
+                    <h3 data-i18n="bluetoothTitle">Bluetooth Communication</h3>
+                    <p data-i18n="bluetoothDesc">Control Arduino wirelessly via Bluetooth module.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(12)">Learn More</button>
+                    <div id="tutorial-12" class="tutorial-details hidden">
+                        <h4>HC-05 Bluetooth Module:</h4>
+                        <pre><code>#include &lt;SoftwareSerial.h&gt;
+SoftwareSerial btSerial(10, 11);
+void setup() {
+  btSerial.begin(9600);
+}
+void loop() {
+  if (btSerial.available()) {
+    char cmd = btSerial.read();
+    if (cmd == '1') digitalWrite(13, HIGH);
+    else if (cmd == '0') digitalWrite(13, LOW);
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🤖</div>
+                    <h3 data-i18n="mlTitle">Machine Learning Basics</h3>
+                    <p data-i18n="mlDesc">Run TensorFlow Lite models on Arduino for AI.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(13)">Learn More</button>
+                    <div id="tutorial-13" class="tutorial-details hidden">
+                        <h4>TensorFlow Lite Micro:</h4>
+                        <pre><code>#include "tensorflow/lite/micro/all_ops_resolver.h"
+extern const unsigned char model_tflite[];
+extern const int model_tflite_len;
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  float input[4] = {sensor1, sensor2, sensor3, sensor4};
+  // Run inference
+  Serial.println(prediction);
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">☁️</div>
+                    <h3 data-i18n="cloudTitle">Cloud Data Logging</h3>
+                    <p data-i18n="cloudDesc">Store sensor data on Google Sheets or AWS.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(14)">Learn More</button>
+                    <div id="tutorial-14" class="tutorial-details hidden">
+                        <h4>Google Sheets Logging:</h4>
+                        <pre><code>#include &lt;ESP8266WiFi.h&gt;
+const char* scriptId = "YOUR_SCRIPT_ID";
+void logToSheets(String temperature) {
+  WiFiClientSecure client;
+  client.setInsecure();
+  String url = "/macros/s/" + String(scriptId) + "/usercontent/exec?temp=" + temperature;
+  client.connect("script.google.com", 443);
+  client.print("GET " + url + " HTTP/1.1\r\n");
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3 data-i18n="pidTitle">PID Control & Motor</h3>
+                    <p data-i18n="pidDesc">Implement PID loops for precise control.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(15)">Learn More</button>
+                    <div id="tutorial-15" class="tutorial-details hidden">
+                        <h4>PID Speed Controller:</h4>
+                        <pre><code>const int motorPin = 9;
+float kp = 1.0, ki = 0.1, kd = 0.05;
+float setpoint = 127, error = 0, integral = 0;
+void loop() {
+  int feedback = analogRead(A0);
+  error = setpoint - feedback;
+  integral += error;
+  float output = (kp * error) + (ki * integral);
+  analogWrite(motorPin, constrain(output, 0, 255));
+  delay(50);
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">⏲️</div>
+                    <h3 data-i18n="rtoTitle">Real-time OS (FreeRTOS)</h3>
+                    <p data-i18n="rtoDesc">Multi-tasking with FreeRTOS scheduler.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(16)">Learn More</button>
+                    <div id="tutorial-16" class="tutorial-details hidden">
+                        <h4>FreeRTOS Multi-tasking:</h4>
+                        <pre><code>#include &lt;Arduino_FreeRTOS.h&gt;
+void TaskReadSensor(void *pvParameters) {
+  while(1) {
+    int value = analogRead(A0);
+    Serial.println(value);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+  }
+}
+void setup() {
+  xTaskCreate(TaskReadSensor, "ReadSensor", 128, NULL, 2, NULL);
+}</code></pre>
                     </div>
                 </div>
             </div>
@@ -646,7 +772,7 @@ Serial.println("Hello");</code></pre>
         <p data-i18n="madeWith">Made with ❤️ for Arduino enthusiasts</p>
         <div class="footer-links">
             <p>Follow & Connect:</p>
-            <a href="https://github.com/Gagik888/Arduino-Learning-Hub" target="_blank" class="github-link">
+            <a href="https://github.com/gagik8615-spec/site" target="_blank" class="github-link">
                 <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
@@ -666,4 +792,3 @@ Serial.println("Hello");</code></pre>
     <script src="script.js"></script>
 </body>
 </html>
-
