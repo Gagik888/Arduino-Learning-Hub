@@ -1,889 +1,937 @@
-// Smooth scroll to section
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #0056b3;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --dark-color: #1a1a1a;
+    --light-color: #f8f9fa;
+    --text-color: #333;
+    --border-color: #ddd;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.8;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.language-selector select {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.language-selector select:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.language-selector select option {
+    background-color: var(--dark-color);
+    color: white;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: slideDown 0.8s ease-out;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-btn {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-btn:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-// Expand tutorial details
-function expandTutorial(index) {
-    const tutorialDetails = document.getElementById(`tutorial-${index}`);
-    if (tutorialDetails) {
-        tutorialDetails.classList.toggle('hidden');
+/* Tutorials Section */
+.tutorials {
+    padding: 60px 20px;
+    background-color: var(--light-color);
+}
+
+.tutorials h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.tutorial-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.tutorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tutorial-card h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.tutorial-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.learn-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.learn-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.tutorial-details {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.tutorial-details h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.tutorial-details pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.tutorial-details code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.tutorial-details ul, .tutorial-details ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.tutorial-details li {
+    margin-bottom: 0.5rem;
+}
+
+/* Projects Section */
+.projects {
+    padding: 60px 20px;
+}
+
+.projects h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    border: 2px solid var(--border-color);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.project-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.15);
+}
+
+.project-card h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.project-card p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.difficulty {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.difficulty {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.project-card button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.project-card button:hover {
+    background-color: var(--secondary-color);
+}
+
+.project-details {
+    background-color: var(--light-color);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.project-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.project-details pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+/* Resources Section */
+.resources {
+    padding: 60px 20px;
+    background-color: var(--light-color);
+}
+
+.resources h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.resource-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.resource-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.resource-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.resource-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.resource-card a:hover {
+    color: var(--secondary-color);
+}
+
+.resource-card button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.resource-card button:hover {
+    background-color: var(--secondary-color);
+}
+
+.resource-card ul {
+    list-style: none;
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: 5px;
+}
+
+.resource-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.resource-card li:last-child {
+    border-bottom: none;
+}
+
+/* Graphs Section */
+.graphs {
+    padding: 60px 20px;
+    background-color: var(--light-color);
+}
+
+.graphs h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.graphs-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.graphs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.graph-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.graph-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.graph-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.graph-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.graph-card canvas {
+    max-height: 300px;
+    margin-bottom: 1rem;
+}
+
+.graph-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.graph-card button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    font-weight: bold;
+}
+
+.graph-card button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Pinouts Section */
+.pinouts {
+    padding: 60px 20px;
+    background-color: #f5f5f5;
+}
+
+.pinouts h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.pinout-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.pinout-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.pinout-tab {
+    background-color: white;
+    border: 2px solid var(--border-color);
+    color: var(--primary-color);
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.pinout-tab:hover {
+    border-color: var(--primary-color);
+    background-color: var(--light-color);
+}
+
+.pinout-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pinout-content {
+    display: none;
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.pinout-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-// Toggle component guide
-function toggleComponentGuide() {
-    const guide = document.getElementById('component-guide');
-    if (guide) {
-        guide.classList.toggle('hidden');
+.pinout-diagram h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.pinout-visual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.pin-group {
+    background-color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.pin-group h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.pin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.pin-item {
+    background: white;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border-left: 3px solid #4CAF50;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.pinout-code {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.pinout-code h4 {
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.pinout-code pre {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.pinout-code code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.pinout-tips {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 3rem;
+}
+
+.pinout-tips h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.tip-card {
+    background-color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-top: 3px solid var(--primary-color);
+    transition: all 0.3s;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tip-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+}
+
+.tip-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Community Section */
+.community {
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.community h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.community p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.community-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.community-btn {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.community-btn:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+.footer-links {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-links p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.github-link:hover {
+    background-color: white;
+    color: var(--dark-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.github-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
-// Toggle pinout guide
-function togglePinout() {
-    const pinout = document.getElementById('pinout-guide');
-    if (pinout) {
-        pinout.classList.toggle('hidden');
+.close {
+    color: var(--text-color);
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Forms in Modal */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.submit-btn {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .tutorials h2,
+    .projects h2,
+    .resources h2 {
+        font-size: 2rem;
+    }
+
+    .tutorial-grid,
+    .project-grid,
+    .resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .community-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        padding: 1.5rem;
     }
 }
 
-// Toggle common mistakes
-function toggleMistakes() {
-    const mistakes = document.getElementById('mistakes-guide');
-    if (mistakes) {
-        mistakes.classList.toggle('hidden');
-    }
-}
-
-// Project data
-const projects = {
-    traffic: {
-        title: 'Traffic Light System',
-        description: 'Build a working traffic light using LEDs and Arduino.',
-        difficulty: 'Beginner',
-        components: [
-            'Arduino Uno',
-            'Red LED',
-            'Yellow LED',
-            'Green LED',
-            '3x 220Ω Resistors',
-            'Jumper wires',
-            'Breadboard'
-        ],
-        code: `// Traffic Light System
-const int redPin = 13;
-const int yellowPin = 12;
-const int greenPin = 11;
-
-void setup() {
-  pinMode(redPin, OUTPUT);
-  pinMode(yellowPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
-}
-
-void loop() {
-  // Red light
-  digitalWrite(redPin, HIGH);
-  delay(5000);
-  digitalWrite(redPin, LOW);
-
-  // Yellow light
-  digitalWrite(yellowPin, HIGH);
-  delay(2000);
-  digitalWrite(yellowPin, LOW);
-
-  // Green light
-  digitalWrite(greenPin, HIGH);
-  delay(5000);
-  digitalWrite(greenPin, LOW);
-}`,
-        steps: [
-            'Connect RED LED to pin 13 (with 220Ω resistor)',
-            'Connect YELLOW LED to pin 12 (with 220Ω resistor)',
-            'Connect GREEN LED to pin 11 (with 220Ω resistor)',
-            'Connect all resistor other ends and LED cathodes to GND',
-            'Upload the code and watch the traffic light cycle'
-        ]
-    },
-    temp: {
-        title: 'Temperature Monitor',
-        description: 'Read temperature and display on LCD screen.',
-        difficulty: 'Intermediate',
-        components: [
-            'Arduino Uno',
-            'LM35 Temperature Sensor',
-            '16x2 LCD Display',
-            '10kΩ Potentiometer',
-            'Jumper wires',
-            'Breadboard'
-        ],
-        code: `// Temperature Monitor with LCD
-#include <LiquidCrystal.h>
-
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-const int tempSensor = A0;
-
-void setup() {
-  lcd.begin(16, 2);
-  lcd.print("Temp Monitor");
-  delay(2000);
-  lcd.clear();
-}
-
-void loop() {
-  int rawValue = analogRead(tempSensor);
-  float voltage = rawValue * (5.0 / 1023.0);
-  float temperature = voltage * 100;
-
-  lcd.setCursor(0, 0);
-  lcd.print("Temp: ");
-  lcd.print(temperature);
-  lcd.print("C");
-  
-  delay(1000);
-}`,
-        steps: [
-            'Connect LM35 sensor: GND, A0, 5V',
-            'Connect LCD pins: RS=12, E=11, D4=5, D5=4, D6=3, D7=2',
-            'Connect LCD: VSS to GND, VDD to 5V, V0 to pot, A to 5V, K to GND',
-            'Upload the temperature monitoring code',
-            'View real-time temperature on LCD display'
-        ]
-    },
-    motion: {
-        title: 'Motion Detector Alarm',
-        description: 'Create a motion detection system with buzzer alert.',
-        difficulty: 'Intermediate',
-        components: [
-            'Arduino Uno',
-            'PIR Motion Sensor',
-            'Buzzer (5V)',
-            'Red LED',
-            '220Ω Resistor',
-            'Jumper wires',
-            'Breadboard'
-        ],
-        code: `// Motion Detector with Alarm
-const int pirPin = 7;
-const int buzzerPin = 9;
-const int ledPin = 13;
-const int delayTime = 5000; // 5 seconds
-
-int motionDetected = 0;
-
-void setup() {
-  pinMode(pirPin, INPUT);
-  pinMode(buzzerPin, OUTPUT);
-  pinMode(ledPin, OUTPUT);
-  Serial.begin(9600);
-  Serial.println("Motion detector started");
-}
-
-void loop() {
-  motionDetected = digitalRead(pirPin);
-
-  if (motionDetected) {
-    Serial.println("Motion detected!");
-    digitalWrite(ledPin, HIGH);
-    digitalWrite(buzzerPin, HIGH);
-    delay(500);
-    digitalWrite(buzzerPin, LOW);
-    delay(500);
-  } else {
-    digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);
-  }
-
-  delay(100);
-}`,
-        steps: [
-            'Connect PIR sensor: GND, pin 7, 5V',
-            'Connect Buzzer: pin 9 to positive, GND to negative',
-            'Connect LED: pin 13 with 220Ω resistor',
-            'Allow PIR sensor 30-60 seconds to calibrate',
-            'Test by moving in front of the PIR sensor'
-        ]
-    },
-    watering: {
-        title: 'Plant Watering System',
-        description: 'Automatic plant watering based on soil moisture.',
-        difficulty: 'Advanced',
-        components: [
-            'Arduino Uno',
-            'Soil Moisture Sensor',
-            'Water Pump (12V with relay)',
-            'Relay Module',
-            'Jumper wires',
-            'Breadboard'
-        ],
-        code: `// Automatic Plant Watering System
-const int soilPin = A0;
-const int relayPin = 8;
-const int ledPin = 13;
-const int threshold = 400; // Adjust based on your sensor
-
-void setup() {
-  pinMode(relayPin, OUTPUT);
-  pinMode(ledPin, OUTPUT);
-  Serial.begin(9600);
-  digitalWrite(relayPin, LOW); // Pump off initially
-}
-
-void loop() {
-  int soilMoisture = analogRead(soilPin);
-  
-  Serial.print("Soil Moisture: ");
-  Serial.println(soilMoisture);
-
-  // If soil is dry
-  if (soilMoisture < threshold) {
-    Serial.println("Soil dry - Starting watering");
-    digitalWrite(ledPin, HIGH);
-    digitalWrite(relayPin, HIGH); // Turn on pump
-    delay(5000); // Water for 5 seconds
-    digitalWrite(relayPin, LOW); // Turn off pump
-    digitalWrite(ledPin, LOW);
-    delay(30000); // Wait 30 seconds before next check
-  } else {
-    Serial.println("Soil moist");
-    digitalWrite(ledPin, LOW);
-  }
-
-  delay(10000); // Check every 10 seconds
-}`,
-        steps: [
-            'Connect Soil Moisture Sensor: GND, A0, 5V',
-            'Connect Relay: GND, pin 8, 5V',
-            'Connect pump to relay (check relay documentation)',
-            'Calibrate threshold value for your soil and sensor',
-            'Test in a pot with soil and plant'
-        ]
-    }
-};
-
-// Show project details
-function showProject(projectKey) {
-    const project = projects[projectKey];
-    if (!project) return;
-
-    const projectDetails = document.getElementById('project-details');
-    const html = `
-        <h3>${project.title}</h3>
-        <p><strong>Difficulty:</strong> ${project.difficulty}</p>
-        
-        <h4>Components Needed:</h4>
-        <ul>
-            ${project.components.map(comp => `<li>${comp}</li>`).join('')}
-        </ul>
-        
-        <h4>Code:</h4>
-        <pre><code>${escapeHtml(project.code)}</code></pre>
-        
-        <h4>Assembly Steps:</h4>
-        <ol>
-            ${project.steps.map(step => `<li>${step}</li>`).join('')}
-        </ol>
-        
-        <button onclick="printProject('${projectKey}')" style="background-color: #007BFF; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 1rem;">
-            Print Project
-        </button>
-    `;
-    
-    projectDetails.innerHTML = html;
-    projectDetails.classList.remove('hidden');
-    
-    // Scroll to project details
-    projectDetails.scrollIntoView({ behavior: 'smooth' });
-}
-
-// Print project details
-function printProject(projectKey) {
-    window.print();
-}
-
-// Escape HTML for safe display
-function escapeHtml(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-    return text.replace(/[&<>"']/g, m => map[m]);
-}
-
-// Modal functions
-function openModal(type) {
-    const modal = document.getElementById('modal');
-    const modalBody = document.getElementById('modal-body');
-
-    let content = '';
-
-    switch(type) {
-        case 'subscribe':
-            content = `
-                <h3>Subscribe to Newsletter</h3>
-                <p>Get weekly Arduino tips and project ideas!</p>
-                <div class="form-group">
-                    <label>Email Address:</label>
-                    <input type="email" placeholder="your@email.com" id="email">
-                </div>
-                <div class="form-group">
-                    <label>Interest Level:</label>
-                    <select style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
-                        <option>Beginner</option>
-                        <option>Intermediate</option>
-                        <option>Advanced</option>
-                    </select>
-                </div>
-                <button class="submit-btn" onclick="submitSubscribe()">Subscribe</button>
-            `;
-            break;
-        case 'feedback':
-            content = `
-                <h3>Send Your Feedback</h3>
-                <p>Help us improve the learning experience!</p>
-                <div class="form-group">
-                    <label>Your Name:</label>
-                    <input type="text" placeholder="Your name" id="name">
-                </div>
-                <div class="form-group">
-                    <label>Your Feedback:</label>
-                    <textarea placeholder="Tell us what you think..." id="feedback"></textarea>
-                </div>
-                <button class="submit-btn" onclick="submitFeedback()">Send Feedback</button>
-            `;
-            break;
-        case 'share':
-            content = `
-                <h3>Share Your Project</h3>
-                <p>Tell us about your Arduino project!</p>
-                <div class="form-group">
-                    <label>Project Name:</label>
-                    <input type="text" placeholder="Project name" id="projectName">
-                </div>
-                <div class="form-group">
-                    <label>Description:</label>
-                    <textarea placeholder="Describe your project..." id="projectDesc"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Code/Link:</label>
-                    <input type="text" placeholder="GitHub link or code snippet" id="projectCode">
-                </div>
-                <button class="submit-btn" onclick="submitProject()">Share Project</button>
-            `;
-            break;
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5rem;
     }
 
-    modalBody.innerHTML = content;
-    modal.classList.remove('hidden');
-    modal.style.display = 'block';
-}
-
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.add('hidden');
-    modal.style.display = 'none';
-}
-
-// Form submission functions using FormSubmit.co (FREE - no backend needed!)
-async function submitSubscribe() {
-    const email = document.getElementById('email').value;
-    const interest = document.querySelector('select').value;
-    
-    if (!email) {
-        alert('Please enter your email address');
-        return;
+    .nav-links {
+        gap: 0.8rem;
+        font-size: 0.8rem;
     }
 
-    // Try to save to backend first
-    try {
-        const res = await fetch('/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email })
-        });
-        
-        if (res.ok) {
-            const data = await res.json();
-            // Also send notification via FormSubmit
-            sendFormSubmit({
-                type: 'Newsletter Subscription',
-                email: email,
-                interest: interest,
-                timestamp: new Date().toLocaleString()
-            });
-            showSuccessMessage('Newsletter Subscription');
-            return;
-        }
-    } catch (err) {
-        console.log('Backend not available, using FormSubmit only');
+    .hero-content h1 {
+        font-size: 1.5rem;
     }
-    
-    // Fallback to FormSubmit if backend fails
-    sendFormSubmit({
-        type: 'Newsletter Subscription',
-        email: email,
-        interest: interest,
-        timestamp: new Date().toLocaleString()
-    });
-}
 
-function submitFeedback() {
-    const name = document.getElementById('name').value;
-    const feedback = document.getElementById('feedback').value;
-    
-    if (name && feedback) {
-        sendFormSubmit({
-            type: 'User Feedback',
-            name: name,
-            feedback: feedback,
-            timestamp: new Date().toLocaleString()
-        });
-    } else {
-        alert('Please fill in all fields');
+    .hero-content p {
+        font-size: 0.9rem;
     }
-}
 
-function submitProject() {
-    const name = document.getElementById('projectName').value;
-    const desc = document.getElementById('projectDesc').value;
-    const code = document.getElementById('projectCode').value;
-    
-    if (name && desc) {
-        sendFormSubmit({
-            type: 'Project Submission',
-            projectName: name,
-            projectDesc: desc,
-            projectCode: code,
-            timestamp: new Date().toLocaleString()
-        });
-    } else {
-        alert('Please fill in all fields');
-    }
-}
-
-function sendFormSubmit(data) {
-    // Try AJAX submission first (returns JSON)
-    const formData = new FormData();
-    formData.append('_captcha', 'false');
-    formData.append('_template', 'table');
-    formData.append('_subject', `Arduino Hub: ${data.type}`);
-
-    // Flatten keys for readable email fields
-    Object.keys(data).forEach(key => {
-        const readableKey = key
-            .replace(/([A-Z])/g, ' $1')
-            .replace(/^./, str => str.toUpperCase())
-            .trim();
-        formData.append(readableKey, data[key]);
-    });
-
-    fetch('https://formsubmit.co/ajax/gagik8615@gmail.com', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(result => {
-        // FormSubmit returns success flag when owner verified; still show success
-        showSuccessMessage(data.type);
-        closeModal();
-    })
-    .catch(error => {
-        console.warn('AJAX submit failed, falling back to non-AJAX form submit:', error);
-
-        // Fallback: create a hidden non-AJAX form that posts to FormSubmit (opens a new tab)
-        // This helps trigger FormSubmit's verification flow if needed
-        const fallbackForm = document.createElement('form');
-        fallbackForm.action = 'https://formsubmit.co/gagik8615@gmail.com';
-        fallbackForm.method = 'POST';
-        fallbackForm.target = '_blank';
-        fallbackForm.style.display = 'none';
-
-        // Move FormData entries into hidden inputs
-        for (const pair of formData.entries()) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = pair[0];
-            input.value = pair[1];
-            fallbackForm.appendChild(input);
-        }
-
-        document.body.appendChild(fallbackForm);
-        fallbackForm.submit();
-
-        // Give user feedback locally (we can't reliably detect delivery)
-        showSuccessMessage(data.type);
-        closeModal();
-
-        // Clean up the form after a short delay (allow new tab to open)
-        setTimeout(() => {
-            try { document.body.removeChild(fallbackForm); } catch (e) {}
-        }, 2000);
-    });
-}
-
-function showSuccessMessage(type) {
-    switch(type) {
-        case 'Newsletter Subscription':
-            alert('Thank you for subscribing! Check your email for confirmation.');
-            break;
-        case 'User Feedback':
-            alert('Thank you for your feedback! We appreciate your input.');
-            break;
-        case 'Project Submission':
-            alert('Thank you for sharing your project! We\'ll review it soon.');
-            break;
-    }
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('modal');
-    if (event.target === modal) {
-        closeModal();
-    }
-}
-
-// Add smooth scrolling to all links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Arduino Learning Hub loaded successfully!');
-    
-    // Initialize all charts with default data
-    initializeTemperatureChart();
-    initializeHumidityChart();
-    initializeVoltageChart();
-    initializeLightChart();
-    initializeMultiSensorChart();
-    initializeComparisonChart();
-});
-
-// Chart configuration
-let temperatureChart, humidityChart, voltageChart, lightChart, multiSensorChart, comparisonChart;
-
-// Temperature Chart
-function initializeTemperatureChart() {
-    const ctx = document.getElementById('temperatureChart').getContext('2d');
-    temperatureChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
-            datasets: [{
-                label: 'Temperature (°C)',
-                data: [20, 22, 25, 28, 26, 23, 21],
-                borderColor: '#FF6384',
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true,
-                pointRadius: 5,
-                pointBackgroundColor: '#FF6384',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    min: 15,
-                    max: 35,
-                    title: { display: true, text: 'Temperature (°C)' }
-                }
-            }
-        }
-    });
-}
-
-function generateTemperatureData() {
-    const newData = Array.from({ length: 7 }, () => Math.floor(Math.random() * 15) + 20);
-    temperatureChart.data.datasets[0].data = newData;
-    temperatureChart.update();
-}
-
-// Humidity Chart
-function initializeHumidityChart() {
-    const ctx = document.getElementById('humidityChart').getContext('2d');
-    humidityChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
-            datasets: [{
-                label: 'Humidity (%)',
-                data: [45, 48, 52, 60, 58, 50, 46],
-                borderColor: '#36A2EB',
-                backgroundColor: 'rgba(54, 162, 235, 0.1)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true,
-                pointRadius: 5,
-                pointBackgroundColor: '#36A2EB',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100,
-                    title: { display: true, text: 'Humidity (%)' }
-                }
-            }
-        }
-    });
-}
-
-function generateHumidityData() {
-    const newData = Array.from({ length: 7 }, () => Math.floor(Math.random() * 60) + 30);
-    humidityChart.data.datasets[0].data = newData;
-    humidityChart.update();
-}
-
-// Voltage Chart
-function initializeVoltageChart() {
-    const ctx = document.getElementById('voltageChart').getContext('2d');
-    voltageChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Pin A0', 'Pin A1', 'Pin A2', 'Pin A3', 'Pin A4', 'Pin A5'],
-            datasets: [{
-                label: 'Voltage (V)',
-                data: [2.5, 3.2, 1.8, 4.1, 2.9, 3.5],
-                backgroundColor: [
-                    '#FFCE56',
-                    '#FF9F40',
-                    '#FF6384',
-                    '#36A2EB',
-                    '#4BC0C0',
-                    '#9966FF'
-                ],
-                borderColor: '#333',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 5,
-                    title: { display: true, text: 'Voltage (V)' }
-                }
-            }
-        }
-    });
-}
-
-function generateVoltageData() {
-    const newData = Array.from({ length: 6 }, () => (Math.random() * 5).toFixed(2));
-    voltageChart.data.datasets[0].data = newData;
-    voltageChart.update();
-}
-
-// Light Chart
-function initializeLightChart() {
-    const ctx = document.getElementById('lightChart').getContext('2d');
-    lightChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Bright', 'Medium', 'Dim', 'Very Dim'],
-            datasets: [{
-                data: [300, 250, 150, 100],
-                backgroundColor: [
-                    '#FFD93D',
-                    '#FFA600',
-                    '#FF6B35',
-                    '#004E89'
-                ],
-                borderColor: '#fff',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            }
-        }
-    });
-}
-
-function generateLightData() {
-    const newData = [
-        Math.floor(Math.random() * 400),
-        Math.floor(Math.random() * 300),
-        Math.floor(Math.random() * 200),
-        Math.floor(Math.random() * 150)
-    ];
-    lightChart.data.datasets[0].data = newData;
-    lightChart.update();
-}
-
-// Multi-Sensor Chart
-function initializeMultiSensorChart() {
-    const ctx = document.getElementById('multiSensorChart').getContext('2d');
-    multiSensorChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
-            datasets: [
-                {
-                    label: 'Temperature (°C)',
-                    data: [20, 22, 25, 28, 26, 23, 21],
-                    borderColor: '#FF6384',
-                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    yAxisID: 'y'
-                },
-                {
-                    label: 'Humidity (%)',
-                    data: [45, 48, 52, 60, 58, 50, 46],
-                    borderColor: '#36A2EB',
-                    backgroundColor: 'rgba(54, 162, 235, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    yAxisID: 'y1'
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            },
-            scales: {
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    min: 15,
-                    max: 35,
-                    title: { display: true, text: 'Temperature (°C)' }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    min: 0,
-                    max: 100,
-                    title: { display: true, text: 'Humidity (%)' },
-                    grid: {
-                        drawOnChartArea: false,
-                    },
-                }
-            }
-        }
-    });
-}
-
-function generateMultiSensorData() {
-    const tempData = Array.from({ length: 7 }, () => Math.floor(Math.random() * 15) + 20);
-    const humidData = Array.from({ length: 7 }, () => Math.floor(Math.random() * 60) + 30);
-    multiSensorChart.data.datasets[0].data = tempData;
-    multiSensorChart.data.datasets[1].data = humidData;
-    multiSensorChart.update();
-}
-
-// Comparison Chart
-function initializeComparisonChart() {
-    const ctx = document.getElementById('comparisonChart').getContext('2d');
-    comparisonChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['Temperature', 'Humidity', 'Light', 'Pressure', 'Motion', 'Distance'],
-            datasets: [{
-                label: 'Current Readings',
-                data: [28, 60, 75, 65, 45, 55],
-                borderColor: '#007BFF',
-                backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                borderWidth: 2,
-                pointRadius: 5,
-                pointBackgroundColor: '#007BFF',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: { font: { size: 12 } }
-                }
-            },
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100
-                }
-            }
-        }
-    });
-}
-
-function generateComparisonData() {
-    const newData = Array.from({ length: 6 }, () => Math.floor(Math.random() * 100));
-    comparisonChart.data.datasets[0].data = newData;
-    comparisonChart.update();
-}
-
-// Pinout Tab Switching
-function showPinoutBoard(boardType) {
-    // Hide all pinout contents
-    document.querySelectorAll('.pinout-content').forEach(el => {
-        el.classList.remove('active');
-    });
-    
-    // Remove active class from all tabs
-    document.querySelectorAll('.pinout-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Show selected pinout
-    const selectedId = boardType + '-pinout';
-    const selectedContent = document.getElementById(selectedId);
-    if (selectedContent) {
-        selectedContent.classList.add('active');
-    }
-    
-    // Add active class to clicked tab
-    if (event && event.target) {
-        event.target.classList.add('active');
+    .cta-btn {
+        padding: 10px 25px;
+        font-size: 0.9rem;
     }
 }
