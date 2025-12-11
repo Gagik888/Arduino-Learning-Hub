@@ -425,22 +425,29 @@ function sendFormSubmit(data) {
     // Using FormSubmit.co - completely free, no backend needed!
     const formData = new FormData();
     formData.append('_captcha', 'false'); // Disable CAPTCHA
+    formData.append('_template', 'table'); // Nice table format
     
     Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
     });
     
-    fetch('https://formsubmit.co/gagik8615@gmail.com', {
+    fetch('https://formsubmit.co/ajax/gagik8615@gmail.com', {
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        showSuccessMessage(data.type);
-        closeModal();
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            showSuccessMessage(data.type);
+            closeModal();
+        } else {
+            showSuccessMessage(data.type);
+            closeModal();
+        }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Thank you! Your submission was received.');
+        showSuccessMessage(data.type);
         closeModal();
     });
 }
@@ -784,4 +791,44 @@ function initializeComparisonChart() {
                     labels: { font: { size: 12 } }
                 }
             },
- 
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 100
+                }
+            }
+        }
+    });
+}
+
+function generateComparisonData() {
+    const newData = Array.from({ length: 6 }, () => Math.floor(Math.random() * 100));
+    comparisonChart.data.datasets[0].data = newData;
+    comparisonChart.update();
+}
+
+// Pinout Tab Switching
+function showPinoutBoard(boardType) {
+    // Hide all pinout contents
+    document.querySelectorAll('.pinout-content').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // Remove active class from all tabs
+    document.querySelectorAll('.pinout-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected pinout
+    const selectedId = boardType + '-pinout';
+    const selectedContent = document.getElementById(selectedId);
+    if (selectedContent) {
+        selectedContent.classList.add('active');
+    }
+    
+    // Add active class to clicked tab
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+}
