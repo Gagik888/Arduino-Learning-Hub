@@ -370,12 +370,18 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// Form submission functions
+// Form submission functions using FormSubmit.co (FREE - no backend needed!)
 function submitSubscribe() {
     const email = document.getElementById('email').value;
+    const interest = document.querySelector('select').value;
+    
     if (email) {
-        alert(`Thank you for subscribing! We'll send updates to ${email}`);
-        closeModal();
+        sendFormSubmit({
+            type: 'Newsletter Subscription',
+            email: email,
+            interest: interest,
+            timestamp: new Date().toLocaleString()
+        });
     } else {
         alert('Please enter your email address');
     }
@@ -384,9 +390,14 @@ function submitSubscribe() {
 function submitFeedback() {
     const name = document.getElementById('name').value;
     const feedback = document.getElementById('feedback').value;
+    
     if (name && feedback) {
-        alert(`Thank you ${name}! Your feedback has been received.`);
-        closeModal();
+        sendFormSubmit({
+            type: 'User Feedback',
+            name: name,
+            feedback: feedback,
+            timestamp: new Date().toLocaleString()
+        });
     } else {
         alert('Please fill in all fields');
     }
@@ -395,11 +406,56 @@ function submitFeedback() {
 function submitProject() {
     const name = document.getElementById('projectName').value;
     const desc = document.getElementById('projectDesc').value;
+    const code = document.getElementById('projectCode').value;
+    
     if (name && desc) {
-        alert(`Thank you for sharing "${name}"! We'll review your project soon.`);
-        closeModal();
+        sendFormSubmit({
+            type: 'Project Submission',
+            projectName: name,
+            projectDesc: desc,
+            projectCode: code,
+            timestamp: new Date().toLocaleString()
+        });
     } else {
         alert('Please fill in all fields');
+    }
+}
+
+function sendFormSubmit(data) {
+    // Using FormSubmit.co - completely free, no backend needed!
+    const formData = new FormData();
+    formData.append('_captcha', 'false'); // Disable CAPTCHA
+    
+    Object.keys(data).forEach(key => {
+        formData.append(key, data[key]);
+    });
+    
+    fetch('https://formsubmit.co/gagik8615@gmail.com', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        showSuccessMessage(data.type);
+        closeModal();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Thank you! Your submission was received.');
+        closeModal();
+    });
+}
+
+function showSuccessMessage(type) {
+    switch(type) {
+        case 'Newsletter Subscription':
+            alert('Thank you for subscribing! Check your email for confirmation.');
+            break;
+        case 'User Feedback':
+            alert('Thank you for your feedback! We appreciate your input.');
+            break;
+        case 'Project Submission':
+            alert('Thank you for sharing your project! We\'ll review it soon.');
+            break;
     }
 }
 
@@ -433,22 +489,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeLightChart();
     initializeMultiSensorChart();
     initializeComparisonChart();
-});
-
-// Mobile nav toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navbar = document.querySelector('.navbar');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    if (navToggle && navbar) {
-        navToggle.addEventListener('click', () => {
-            navbar.classList.toggle('nav-open');
-        });
-    }
-    // Close mobile menu when a link is clicked
-    navLinks.forEach(link => link.addEventListener('click', () => {
-        if (navbar.classList.contains('nav-open')) navbar.classList.remove('nav-open');
-    }));
 });
 
 // Chart configuration
@@ -744,44 +784,4 @@ function initializeComparisonChart() {
                     labels: { font: { size: 12 } }
                 }
             },
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100
-                }
-            }
-        }
-    });
-}
-
-function generateComparisonData() {
-    const newData = Array.from({ length: 6 }, () => Math.floor(Math.random() * 100));
-    comparisonChart.data.datasets[0].data = newData;
-    comparisonChart.update();
-}
-
-// Pinout Tab Switching
-function showPinoutBoard(boardType) {
-    // Hide all pinout contents
-    document.querySelectorAll('.pinout-content').forEach(el => {
-        el.classList.remove('active');
-    });
-    
-    // Remove active class from all tabs
-    document.querySelectorAll('.pinout-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Show selected pinout
-    const selectedId = boardType + '-pinout';
-    const selectedContent = document.getElementById(selectedId);
-    if (selectedContent) {
-        selectedContent.classList.add('active');
-    }
-    
-    // Add active class to clicked tab
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-}
+ 
