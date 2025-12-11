@@ -422,33 +422,62 @@ function submitProject() {
 }
 
 function sendFormSubmit(data) {
-    // Using FormSubmit.co - completely free, no backend needed!
+    // Try AJAX submission first (returns JSON)
     const formData = new FormData();
-    formData.append('_captcha', 'false'); // Disable CAPTCHA
-    formData.append('_template', 'table'); // Nice table format
-    
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+    formData.append('_subject', `Arduino Hub: ${data.type}`);
+
+    // Flatten keys for readable email fields
     Object.keys(data).forEach(key => {
-        formData.append(key, data[key]);
+        const readableKey = key
+            .replace(/([A-Z])/g, ' $1')
+            .replace(/^./, str => str.toUpperCase())
+            .trim();
+        formData.append(readableKey, data[key]);
     });
-    
+
     fetch('https://formsubmit.co/ajax/gagik8615@gmail.com', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(result => {
-        if (result.success) {
-            showSuccessMessage(data.type);
-            closeModal();
-        } else {
-            showSuccessMessage(data.type);
-            closeModal();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
+        // FormSubmit returns success flag when owner verified; still show success
         showSuccessMessage(data.type);
         closeModal();
+    })
+    .catch(error => {
+        console.warn('AJAX submit failed, falling back to non-AJAX form submit:', error);
+
+        // Fallback: create a hidden non-AJAX form that posts to FormSubmit (opens a new tab)
+        // This helps trigger FormSubmit's verification flow if needed
+        const fallbackForm = document.createElement('form');
+        fallbackForm.action = 'https://formsubmit.co/gagik8615@gmail.com';
+        fallbackForm.method = 'POST';
+        fallbackForm.target = '_blank';
+        fallbackForm.style.display = 'none';
+
+        // Move FormData entries into hidden inputs
+        for (const pair of formData.entries()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = pair[0];
+            input.value = pair[1];
+            fallbackForm.appendChild(input);
+        }
+
+        document.body.appendChild(fallbackForm);
+        fallbackForm.submit();
+
+        // Give user feedback locally (we can't reliably detect delivery)
+        showSuccessMessage(data.type);
+        closeModal();
+
+        // Clean up the form after a short delay (allow new tab to open)
+        setTimeout(() => {
+            try { document.body.removeChild(fallbackForm); } catch (e) {}
+        }, 2000);
     });
 }
 
