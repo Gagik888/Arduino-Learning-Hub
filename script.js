@@ -371,20 +371,46 @@ function closeModal() {
 }
 
 // Form submission functions using FormSubmit.co (FREE - no backend needed!)
-function submitSubscribe() {
+async function submitSubscribe() {
     const email = document.getElementById('email').value;
     const interest = document.querySelector('select').value;
     
-    if (email) {
-        sendFormSubmit({
-            type: 'Newsletter Subscription',
-            email: email,
-            interest: interest,
-            timestamp: new Date().toLocaleString()
-        });
-    } else {
+    if (!email) {
         alert('Please enter your email address');
+        return;
     }
+
+    // Try to save to backend first
+    try {
+        const res = await fetch('/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        });
+        
+        if (res.ok) {
+            const data = await res.json();
+            // Also send notification via FormSubmit
+            sendFormSubmit({
+                type: 'Newsletter Subscription',
+                email: email,
+                interest: interest,
+                timestamp: new Date().toLocaleString()
+            });
+            showSuccessMessage('Newsletter Subscription');
+            return;
+        }
+    } catch (err) {
+        console.log('Backend not available, using FormSubmit only');
+    }
+    
+    // Fallback to FormSubmit if backend fails
+    sendFormSubmit({
+        type: 'Newsletter Subscription',
+        email: email,
+        interest: interest,
+        timestamp: new Date().toLocaleString()
+    });
 }
 
 function submitFeedback() {
