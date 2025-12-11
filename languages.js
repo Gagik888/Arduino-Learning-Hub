@@ -37,8 +37,22 @@ const translations = {
         soundDesc: 'Generate tones and control buzzers with tone() function.',
         dataTypes: 'Data Types & Variables',
         dataTypesDesc: 'Understand Arduino data types and memory management.',
-        loops: 'Loops & Conditionals',
+        loopsTitle: 'Loops & Conditionals',
         loopsDesc: 'Master control flow with loops and if statements.',
+
+        /* Advanced Tutorials (11-16) */
+        iotTitle: 'IoT & Networking',
+        iotDesc: 'Send sensor data to cloud platforms like Firebase or ThingSpeak.',
+        bluetoothTitle: 'Bluetooth Communication',
+        bluetoothDesc: 'Control Arduino wirelessly via Bluetooth module.',
+        mlTitle: 'Machine Learning Basics',
+        mlDesc: 'Run TensorFlow Lite models on Arduino for AI.',
+        cloudTitle: 'Cloud Data Logging',
+        cloudDesc: 'Store sensor data on Google Sheets or AWS.',
+        pidTitle: 'PID Control & Motor',
+        pidDesc: 'Implement PID loops for precise control.',
+        rtoTitle: 'Real-time OS (FreeRTOS)',
+        rtoDesc: 'Multi-tasking with FreeRTOS scheduler.',
         
         // Projects Section
         popularProjects: 'Popular Projects',
@@ -123,8 +137,22 @@ const translations = {
         soundDesc: 'Գեներացնեք տոներ և կառավարեք բզամբ tone() ֆունկցիայով:',
         dataTypes: 'Տվյալների Տեսակներ & Փոփոխականներ',
         dataTypesDesc: 'Հասկացեք Arduino տվյալների տեսակներ և հիշողության կառավարում:',
-        loops: 'Հանգույցներ & Պայմանական',
+        loopsTitle: 'Հանգույցներ & Պայմանական',
         loopsDesc: 'Տիրապետեք հավաքվածքի հոսքին հանգույցներ և if հայտարարություններով:',
+
+        /* Advanced Tutorials (11-16) */
+        iotTitle: 'IoT & Ցանցային Տեխնոլոգիա',
+        iotDesc: 'Ուղարկեք սենսորային տվյալներ Firebase կամ ThingSpeak-ի նման ամպային հարթակներ:',
+        bluetoothTitle: 'Bluetooth Հաղորդակցություն',
+        bluetoothDesc: 'Կառավարեք Arduino-ն անլար Bluetooth մոդուլի միջոցով:',
+        mlTitle: 'Մեքենայական Ուսուչ Հիմունքներ',
+        mlDesc: 'Գործարկեք TensorFlow Lite մոդելներ Arduino-ում AI-ի համար:',
+        cloudTitle: 'Ամպային Տվյալների Գրանցում',
+        cloudDesc: 'Պահեստացրեք սենսորային տվյալներ Google Sheets կամ AWS-ում:',
+        pidTitle: 'PID Կառավարում & Մոտոր',
+        pidDesc: 'Իրականացրեք PID հանգույցներ ճշգրիտ կառավարման համար:',
+        rtoTitle: 'Իրական Ժամանակի OS (FreeRTOS)',
+        rtoDesc: 'Բազմատեղ FreeRTOS ժամանակացուցակի հետ:',
         
         // Projects Section
         popularProjects: 'Հայտնի Նախագծեր',
@@ -209,8 +237,22 @@ const translations = {
         soundDesc: 'Генерируйте тоны и управляйте зуммерами с помощью функции tone().',
         dataTypes: 'Типы данных и переменные',
         dataTypesDesc: 'Поймите типы данных Arduino и управление памятью.',
-        loops: 'Циклы и условные операторы',
+        loopsTitle: 'Циклы и условные операторы',
         loopsDesc: 'Овладейте потоком управления циклами и операторами if.',
+
+        /* Advanced Tutorials (11-16) */
+        iotTitle: 'IoT и сетевые технологии',
+        iotDesc: 'Отправляйте данные датчиков на облачные платформы, такие как Firebase или ThingSpeak.',
+        bluetoothTitle: 'Связь через Bluetooth',
+        bluetoothDesc: 'Управляйте Arduino по беспроводной сети через модуль Bluetooth.',
+        mlTitle: 'Основы машинного обучения',
+        mlDesc: 'Запускайте модели TensorFlow Lite на Arduino для искусственного интеллекта.',
+        cloudTitle: 'Облачная регистрация данных',
+        cloudDesc: 'Сохраняйте данные датчиков в Google Sheets или AWS.',
+        pidTitle: 'PID-контроль и двигатели',
+        pidDesc: 'Реализуйте PID-циклы для точного управления.',
+        rtoTitle: 'Real-Time OS (FreeRTOS)',
+        rtoDesc: 'Многопоточность с планировщиком FreeRTOS в реальном времени.',
         
         // Projects Section
         popularProjects: 'Популярные проекты',
